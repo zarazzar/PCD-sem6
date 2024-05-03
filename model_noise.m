@@ -42,6 +42,12 @@ noise_rayleigh = random('Rayleigh', 15, size(I));
 img_ray = uint8(noise_rayleigh);
 img_ray = I + img_ray;
 
+%periodic noise
+s = size(I);
+[x,y] = meshgrid(1:s(1), 1:s(2));
+p = sin(x/3+y/5)+1;
+periodic_noise = (im2double(I)+p'/2)/2;
+
 figure;
 subplot(3, 3, 1); imshow(I); title('Original Image');
 subplot(3, 3, 2); imshow(img_gauss); title('Gaussian Noise');
@@ -50,3 +56,4 @@ subplot(3, 3, 4); imshow(img_uniform); title('Uniform Noise');
 subplot(3, 3, 5); imshow(img_exp); title('Exponential Noise');
 subplot(3, 3, 6); imshow(img_gamma); title('Gamma Noise');
 subplot(3, 3, 7); imshow(img_ray); title('Rayleigh Noise');
+subplot(3, 3, 8); imshow(periodic_noise); title('periodic Noise');
